@@ -13,7 +13,9 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-export const AuthService = firebase.auth();
+export const authService = firebase.auth();
+
+export const firebaseInstance = firebase;
 
 // 로그인, 회원가입 타입
 export type UserCredential = firebase.auth.UserCredential;
