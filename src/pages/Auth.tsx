@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { AuthService, UserCredential } from 'firebaseConfig';
 
+/**
+ * 인증 페이지
+ * /auth
+ */
 export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,7 +33,7 @@ export default function Auth() {
       } else {
         data = await AuthService.signInWithEmailAndPassword(email, password);
       }
-      console.log(data);
+      console.log('유저 정보: ', data);
     } catch (error) {
       console.error(error);
     }
@@ -48,6 +52,7 @@ export default function Auth() {
         />
         <button>{newAccount ? '가입하기' : '로그인'}</button>
       </form>
+
       <div>
         <button>구글 로그인</button>
         <button>깃허브 로그인</button>
