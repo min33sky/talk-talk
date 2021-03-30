@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import AppRouter from 'components/AppRoutes';
-import { AuthService } from 'firebaseConfig';
+import React from 'react';
+import AppRouter from 'components/AppRouter';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  console.log('user: ', AuthService.currentUser ? AuthService.currentUser : '');
-
-  return <AppRouter isLoggedIn={isLoggedIn} />;
+  return (
+    <>
+      <AppRouter />
+      <footer>푸 터 들 어 갈 자 리 !!</footer>
+    </>
+  );
 }
 
 export default App;
