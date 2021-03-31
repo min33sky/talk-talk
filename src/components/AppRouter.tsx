@@ -3,12 +3,11 @@ import Auth from 'pages/Auth';
 import Home from 'pages/Home';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import Profile from 'pages/Profile';
+import { useAuthState } from 'contexts/auth';
 
-interface IProps {
-  isLoggedIn: boolean;
-}
+export default function AppRouter() {
+  const { isLoggedIn } = useAuthState();
 
-export default function AppRouter({ isLoggedIn }: IProps) {
   return (
     <Router>
       <Switch>
