@@ -10,9 +10,14 @@ function App() {
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
+      console.log('observer: ', user);
       if (user) {
         dispatch({
           type: 'LOG_IN',
+        });
+      } else {
+        dispatch({
+          type: 'LOG_OUT',
         });
       }
       setInit(true);
