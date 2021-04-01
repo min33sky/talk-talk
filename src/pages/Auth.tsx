@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { authService, UserCredential, firebaseInstance } from 'firebaseConfig';
+import { authService, UserCredential, firebaseInstance } from 'fbase';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useAuthState } from 'contexts/auth';
 
