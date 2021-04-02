@@ -45,12 +45,12 @@ export default function Auth() {
 
   const onClickGoogle = async () => {
     const provider = new firebaseInstance.auth.GoogleAuthProvider();
-    const data = await authService.signInWithPopup(provider);
+    await authService.signInWithPopup(provider);
   };
 
   const onClickGithub = async () => {
     const provider = new firebaseInstance.auth.GithubAuthProvider();
-    const data = await authService.signInWithPopup(provider);
+    await authService.signInWithPopup(provider);
   };
 
   return (

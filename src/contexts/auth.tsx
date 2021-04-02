@@ -1,11 +1,5 @@
 import React, { createContext, Dispatch, useContext, useReducer } from 'react';
-
-type UserType = {
-  uid: string;
-  email: string;
-  photoURL?: string;
-  displayName?: string;
-};
+import { UserType } from 'typings/tweet';
 
 // ***** State *******************************************************************//
 export type AuthState = {

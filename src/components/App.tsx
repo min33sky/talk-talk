@@ -10,7 +10,6 @@ function App() {
 
   useEffect(() => {
     authService.onAuthStateChanged((user: any) => {
-      console.log('observer: ', user?.uid, user?.photoURL, user?.email, user?.displayName);
       if (user) {
         dispatch({
           type: 'LOG_IN',

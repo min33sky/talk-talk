@@ -1,33 +1,30 @@
+import { useAuthState } from 'contexts/auth';
 import { dbService } from 'fbase';
 import React, { useEffect, useState } from 'react';
 import { TweetType } from 'typings/tweet';
 
 export default function Home() {
+  const { currentUser } = useAuthState();
   const [message, setMessage] = useState('');
   const [tweets, setTweets] = useState<TweetType[]>([]);
 
-  const getTweets = async () => {
-    const tweetsData = await dbService.collection('tweets').get();
-    tweetsData.forEach((tweetData) => {
-      // ? 응답받은 객체에 id값을 추가
-      const tweetObject = {
-        id: tweetData.id,
-        ...tweetData.data(),
-      } as TweetType;
-
-      setTweets((prev) => [tweetObject, ...prev]);
-    });
-  };
-
   useEffect(() => {
-    getTweets();
+    dbService.collection('tweets').onSnapshot((snapshot) => {
+      const tweetData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as TweetType[];
+
+      setTweets(tweetData);
+    });
   }, []);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await dbService.collection('tweets').add({
-      tweet: message,
+      text: message,
       createdAt: Date.now(),
+      creatorId: currentUser?.uid,
     });
     setMessage('');
   };
@@ -51,9 +48,9 @@ export default function Home() {
       </form>
 
       <div>
-        {tweets.map((tweet: any) => (
+        {tweets.map((tweet) => (
           <div key={tweet.id}>
-            <h4>{tweet.tweet}</h4>
+            <h4>{tweet.text}</h4>
           </div>
         ))}
       </div>
