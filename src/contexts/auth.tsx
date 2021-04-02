@@ -1,12 +1,21 @@
 import React, { createContext, Dispatch, useContext, useReducer } from 'react';
 
+type UserType = {
+  uid: string;
+  email: string;
+  photoURL?: string;
+  displayName?: string;
+};
+
 // ***** State *******************************************************************//
 export type AuthState = {
   isLoggedIn: boolean;
+  currentUser: UserType | null;
 };
 
 const initialState: AuthState = {
   isLoggedIn: false,
+  currentUser: null,
 };
 
 export const AuthStateContext = createContext<AuthState | undefined>(undefined);
@@ -15,11 +24,11 @@ export const AuthStateContext = createContext<AuthState | undefined>(undefined);
 type Action =
   | {
       type: 'LOG_IN';
+      payload: UserType;
     }
   | {
       type: 'LOG_OUT';
     };
-
 type AuthDispatch = Dispatch<Action>;
 
 export const AuthDispatchContext = createContext<AuthDispatch | undefined>(undefined);
@@ -31,12 +40,14 @@ function authReducer(state: AuthState, action: Action): AuthState {
       return {
         ...state,
         isLoggedIn: true,
+        currentUser: action.payload,
       };
 
     case 'LOG_OUT':
       return {
         ...state,
         isLoggedIn: false,
+        currentUser: null,
       };
 
     default:

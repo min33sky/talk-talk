@@ -1,16 +1,31 @@
-import { useAuthState } from 'contexts/auth';
 import { dbService } from 'fbase';
-import React, { useState } from 'react';
-import { Redirect } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { TweetType } from 'typings/tweet';
 
 export default function Home() {
-  const { isLoggedIn } = useAuthState();
-
   const [message, setMessage] = useState('');
+  const [tweets, setTweets] = useState<TweetType[]>([]);
+
+  const getTweets = async () => {
+    const tweetsData = await dbService.collection('tweets').get();
+    tweetsData.forEach((tweetData) => {
+      // ? 응답받은 객체에 id값을 추가
+      const tweetObject = {
+        id: tweetData.id,
+        ...tweetData.data(),
+      } as TweetType;
+
+      setTweets((prev) => [tweetObject, ...prev]);
+    });
+  };
+
+  useEffect(() => {
+    getTweets();
+  }, []);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await dbService.collection('tweet').add({
+    await dbService.collection('tweets').add({
       tweet: message,
       createdAt: Date.now(),
     });
@@ -21,12 +36,8 @@ export default function Home() {
     setMessage(e.target.value);
   };
 
-  if (!isLoggedIn) {
-    return <Redirect to="/auth" />;
-  }
-
   return (
-    <>
+    <div>
       <h2>Home</h2>
       <form onSubmit={onSubmit}>
         <input
@@ -38,6 +49,14 @@ export default function Home() {
         />
         <input type="submit" value="Send" />
       </form>
-    </>
+
+      <div>
+        {tweets.map((tweet: any) => (
+          <div key={tweet.id}>
+            <h4>{tweet.tweet}</h4>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

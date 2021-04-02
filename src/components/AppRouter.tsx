@@ -12,11 +12,21 @@ export default function AppRouter() {
   return (
     <Router>
       {isLoggedIn && <Navigation />}
+
       <Switch>
-        <Route exact path="/" component={Home}></Route>
-        <Route path="/auth" component={Auth}></Route>
-        <Route path="/profile" component={Profile}></Route>
-        <Redirect path="*" to="/" />
+        {!isLoggedIn && (
+          <>
+            <Route path="/auth" component={Auth}></Route>
+            <Redirect path="*" to="/auth" />
+          </>
+        )}
+        {isLoggedIn && (
+          <>
+            <Route exact path="/" component={Home}></Route>
+            <Route path="/profile" component={Profile}></Route>
+            <Redirect path="*" to="/" />
+          </>
+        )}
       </Switch>
     </Router>
   );

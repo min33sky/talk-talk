@@ -9,11 +9,17 @@ function App() {
   const dispatch = useAuthDispatch();
 
   useEffect(() => {
-    authService.onAuthStateChanged((user) => {
-      console.log('observer: ', user);
+    authService.onAuthStateChanged((user: any) => {
+      console.log('observer: ', user?.uid, user?.photoURL, user?.email, user?.displayName);
       if (user) {
         dispatch({
           type: 'LOG_IN',
+          payload: {
+            uid: user?.uid,
+            photoURL: user?.photoURL,
+            email: user?.email,
+            displayName: user?.displayName,
+          },
         });
       } else {
         dispatch({

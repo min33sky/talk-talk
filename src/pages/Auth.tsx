@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { authService, UserCredential, firebaseInstance } from 'fbase';
-import { Redirect, useHistory } from 'react-router-dom';
-import { useAuthState } from 'contexts/auth';
 
 /**
  * 인증 페이지
@@ -12,9 +10,6 @@ export default function Auth() {
   const [password, setPassword] = useState('');
   const [newAccount, setNewAccount] = useState(true);
   const [error, setError] = useState('');
-  const history = useHistory();
-
-  const { isLoggedIn } = useAuthState();
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -40,7 +35,6 @@ export default function Auth() {
         data = await authService.signInWithEmailAndPassword(email, password);
       }
       console.log('유저 정보: ', data);
-      history.push('/');
     } catch (error) {
       console.error('error: ', error);
       setError(error.message);
@@ -52,18 +46,12 @@ export default function Auth() {
   const onClickGoogle = async () => {
     const provider = new firebaseInstance.auth.GoogleAuthProvider();
     const data = await authService.signInWithPopup(provider);
-    console.log(data);
   };
 
   const onClickGithub = async () => {
     const provider = new firebaseInstance.auth.GithubAuthProvider();
     const data = await authService.signInWithPopup(provider);
-    console.log(data);
   };
-
-  if (isLoggedIn) {
-    return <Redirect to="/" />;
-  }
 
   return (
     <>
