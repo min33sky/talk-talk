@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { dbService } from 'fbase';
+import { dbService, storageService } from 'fbase';
 import { TweetType } from 'typings/tweet';
 
 interface IProps {
@@ -19,8 +19,10 @@ export default function Tweet({ tweet, isOwner }: IProps) {
   const onDeleteClick = async () => {
     const ok = window.confirm('이 트윗을 삭제하시겠습니까?');
     if (ok) {
+      if (tweet.attachmentURL) {
+        await storageService.refFromURL(tweet.attachmentURL).delete();
+      }
       await dbService.doc(`tweets/${tweet.id}`).delete();
-      console.log('삭제되었습니다.');
     }
   };
 

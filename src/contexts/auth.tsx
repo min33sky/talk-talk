@@ -1,5 +1,5 @@
+import { UserType } from 'fbase';
 import React, { createContext, Dispatch, useContext, useReducer } from 'react';
-import { UserType } from 'typings/user';
 
 // ***** State *******************************************************************//
 export type AuthState = {

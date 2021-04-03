@@ -4,5 +4,5 @@ export type TweetType = {
   createdAt: number;
   text: string;
   creatorId: string;
-  attachmentURL: string;
+  attachmentURL: string; // Image URL (Storage)
 };

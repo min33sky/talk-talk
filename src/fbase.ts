@@ -23,3 +23,6 @@ export const firebaseInstance = firebase;
 
 // 로그인, 회원가입 타입
 export type UserCredential = firebase.auth.UserCredential;
+
+// 유저 정보 타입
+export type UserType = firebase.User;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AppRouter from 'components/AppRouter';
-import { authService } from 'fbase';
+import { authService, UserType } from 'fbase';
 import { useAuthDispatch } from 'contexts/auth';
 
 function App() {
@@ -9,16 +9,11 @@ function App() {
   const dispatch = useAuthDispatch();
 
   useEffect(() => {
-    authService.onAuthStateChanged((user: any) => {
+    authService.onAuthStateChanged((user: UserType | null) => {
       if (user) {
         dispatch({
           type: 'LOG_IN',
-          payload: {
-            uid: user?.uid,
-            photoURL: user?.photoURL,
-            email: user?.email,
-            displayName: user?.displayName,
-          },
+          payload: user,
         });
       } else {
         dispatch({
