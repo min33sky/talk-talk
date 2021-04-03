@@ -36,7 +36,6 @@ function App() {
   return (
     <>
       <AppRouter />
-      <footer>푸 터 들 어 갈 자 리 !!</footer>
     </>
   );
 }

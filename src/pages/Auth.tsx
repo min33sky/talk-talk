@@ -3,7 +3,7 @@ import { authService, UserCredential, firebaseInstance } from 'fbase';
 
 /**
  * 인증 페이지
- * /auth
+ * URL: /auth
  */
 export default function Auth() {
   const [email, setEmail] = useState('');

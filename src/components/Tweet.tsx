@@ -7,6 +7,11 @@ interface IProps {
   isOwner: boolean;
 }
 
+/**
+ * 트윗 컴포넌트
+ * @param props tweet, isOwner
+ * @returns Tweet Component
+ */
 export default function Tweet({ tweet, isOwner }: IProps) {
   const [editing, setEditing] = useState(false);
   const [newTweet, setNewTweet] = useState(tweet.text);
@@ -56,7 +61,12 @@ export default function Tweet({ tweet, isOwner }: IProps) {
           </form>
         </>
       )}
+
       <h4>{tweet.text}</h4>
+      {tweet.attachmentURL && (
+        <img src={tweet.attachmentURL} width="50px" height="50px" alt="tweetImage" />
+      )}
+
       {isOwner && (
         <>
           <button onClick={onDeleteClick}>Delete Tweet</button>

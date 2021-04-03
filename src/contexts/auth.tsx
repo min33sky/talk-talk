@@ -1,5 +1,5 @@
 import React, { createContext, Dispatch, useContext, useReducer } from 'react';
-import { UserType } from 'typings/tweet';
+import { UserType } from 'typings/user';
 
 // ***** State *******************************************************************//
 export type AuthState = {
@@ -23,6 +23,7 @@ type Action =
   | {
       type: 'LOG_OUT';
     };
+
 type AuthDispatch = Dispatch<Action>;
 
 export const AuthDispatchContext = createContext<AuthDispatch | undefined>(undefined);
