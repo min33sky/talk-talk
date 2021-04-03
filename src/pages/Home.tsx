@@ -1,3 +1,4 @@
+import Tweet from 'components/Tweet';
 import { useAuthState } from 'contexts/auth';
 import { dbService } from 'fbase';
 import React, { useEffect, useState } from 'react';
@@ -9,14 +10,18 @@ export default function Home() {
   const [tweets, setTweets] = useState<TweetType[]>([]);
 
   useEffect(() => {
-    dbService.collection('tweets').onSnapshot((snapshot) => {
-      const tweetData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      })) as TweetType[];
+    // ? DB가 업데이트 될 때마다 호출되는 이벤트 리스너
+    dbService
+      .collection('tweets')
+      .orderBy('createdAt', 'desc')
+      .onSnapshot((snapshot) => {
+        const tweetData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as TweetType[];
 
-      setTweets(tweetData);
-    });
+        setTweets(tweetData);
+      });
   }, []);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -49,9 +54,7 @@ export default function Home() {
 
       <div>
         {tweets.map((tweet) => (
-          <div key={tweet.id}>
-            <h4>{tweet.text}</h4>
-          </div>
+          <Tweet key={tweet.id} tweet={tweet} isOwner={tweet.creatorId === currentUser?.uid} />
         ))}
       </div>
     </div>
