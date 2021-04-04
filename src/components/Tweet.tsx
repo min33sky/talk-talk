@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { dbService, storageService } from 'fbase';
 import { TweetType } from 'typings/tweet';
+import TweetEditFrom from './TweetEditFrom';
 
 interface IProps {
   tweet: TweetType;
@@ -14,7 +15,6 @@ interface IProps {
  */
 export default function Tweet({ tweet, isOwner }: IProps) {
   const [editing, setEditing] = useState(false);
-  const [newTweet, setNewTweet] = useState(tweet.text);
 
   const onDeleteClick = async () => {
     const ok = window.confirm('이 트윗을 삭제하시겠습니까?');
@@ -26,45 +26,14 @@ export default function Tweet({ tweet, isOwner }: IProps) {
     }
   };
 
-  const onEditClick = () => {
-    setEditing(true);
-  };
-
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    await dbService.doc(`tweets/${tweet.id}`).update({
-      text: newTweet,
-    });
-
-    setEditing(false);
-  };
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { value },
-    } = e;
-    setNewTweet(value);
-  };
+  const onEditClick = () => setEditing(true);
 
   return (
     <div>
-      {editing && (
-        <>
-          <form onSubmit={onSubmit}>
-            <input
-              type="text"
-              value={newTweet}
-              onChange={onChange}
-              required
-              placeholder="Edit Your Tweet"
-            />
-            <input type="submit" value="Update Tweet" />
-          </form>
-        </>
-      )}
+      {editing && <TweetEditFrom tweet={tweet} setEditing={setEditing} />}
 
       <h4>{tweet.text}</h4>
+
       {tweet.attachmentURL && (
         <img src={tweet.attachmentURL} width="50px" height="50px" alt="tweetImage" />
       )}
