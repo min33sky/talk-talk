@@ -33,7 +33,6 @@ export default function Home() {
 
   return (
     <div>
-      <h2>Home</h2>
       <TweetForm />
       <div>
         {tweets.map((tweet) => (

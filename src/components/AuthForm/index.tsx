@@ -2,6 +2,10 @@ import { authService, UserCredential } from 'fbase';
 import React, { useState } from 'react';
 import { Form, Input, Button, AuthError, AuthSwitch } from './style';
 
+/**
+ * 인증 폼 (로그인, 회원가입)
+ * @returns AuthForm Component
+ */
 export default function AuthForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,7 +27,7 @@ export default function AuthForm() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    let data: UserCredential;
+    let data: UserCredential; // Firbase Auth Type
 
     try {
       if (newAccount) {
