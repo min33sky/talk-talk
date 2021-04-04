@@ -4,6 +4,14 @@ import TweetForm from 'components/TweetForm';
 import { useAuthState } from 'contexts/auth';
 import { dbService } from 'fbase';
 import { TweetType } from 'typings/tweet';
+import styled from '@emotion/styled';
+
+const Container = styled.div`
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+`;
 
 /**
  * Main Page
@@ -32,13 +40,13 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <Container>
       <TweetForm />
-      <div>
+      <div style={{ marginTop: 30 }}>
         {tweets.map((tweet) => (
           <Tweet key={tweet.id} tweet={tweet} isOwner={tweet.creatorId === currentUser?.uid} />
         ))}
       </div>
-    </div>
+    </Container>
   );
 }

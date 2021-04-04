@@ -1,6 +1,35 @@
 import React from 'react';
 import { authService, firebaseInstance } from 'fbase';
 import AuthForm from 'components/AuthForm';
+import styled from '@emotion/styled';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
+const SocialAuthButtons = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 320px;
+
+  button {
+    cursor: pointer;
+    border-radius: 20px;
+    border: none;
+    padding: 10px 0;
+    font-size: 12px;
+    text-align: center;
+    width: 150px;
+    background-color: white;
+  }
+`;
 
 /**
  * 인증 페이지
@@ -18,16 +47,17 @@ export default function Auth() {
   };
 
   return (
-    <>
+    <Container>
+      <FontAwesomeIcon icon={faTwitter} color="#04aaff" size="3x" style={{ marginBottom: 30 }} />
       <AuthForm />
-      <div>
+      <SocialAuthButtons>
         <button name="google" onClick={onClickGoogle}>
-          구글 로그인
+          Continue with Google <FontAwesomeIcon icon={faGoogle} />
         </button>
         <button name="github" onClick={onClickGithub}>
-          깃허브 로그인
+          Continue with Github <FontAwesomeIcon icon={faGithub} />
         </button>
-      </div>
-    </>
+      </SocialAuthButtons>
+    </Container>
   );
 }

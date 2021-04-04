@@ -14,19 +14,29 @@ export default function AppRouter() {
       {isLoggedIn && <Navigation />}
 
       <Switch>
-        {!isLoggedIn && (
-          <>
-            <Route path="/auth" component={Auth}></Route>
-            <Redirect path="*" to="/auth" />
-          </>
-        )}
-        {isLoggedIn && (
-          <>
-            <Route exact path="/" component={Home}></Route>
-            <Route path="/profile" component={Profile}></Route>
-            <Redirect path="*" to="/" />
-          </>
-        )}
+        <>
+          {!isLoggedIn && (
+            <>
+              <Route path="/auth" component={Auth}></Route>
+              <Redirect path="*" to="/auth" />
+            </>
+          )}
+          {isLoggedIn && (
+            <div
+              style={{
+                maxWidth: 890,
+                width: '100%',
+                margin: '0 auto',
+                marginTop: 80,
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <Route exact path="/" component={Home}></Route>
+              <Route path="/profile" component={Profile}></Route>
+            </div>
+          )}
+        </>
       </Switch>
     </Router>
   );

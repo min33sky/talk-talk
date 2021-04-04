@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { authService, dbService } from 'fbase';
 import { useAuthDispatch, useAuthState } from 'contexts/auth';
+import { Container, ProfileForm, LogoutButton } from 'pages/Profile/style';
 
 /**
  * Profile Page
@@ -54,13 +55,18 @@ export default function Profile() {
   };
 
   return (
-    <>
-      app
-      <form onSubmit={onSubmit}>
-        <input type="text" placeholder="Display Name" value={newDisplayName} onChange={onChange} />
+    <Container>
+      <ProfileForm onSubmit={onSubmit}>
+        <input
+          type="text"
+          placeholder="Display Name"
+          value={newDisplayName}
+          onChange={onChange}
+          autoFocus
+        />
         <input type="submit" value="Update Profile" />
-      </form>
-      <button onClick={onLogout}>Logout</button>
-    </>
+      </ProfileForm>
+      <LogoutButton onClick={onLogout}>Logout</LogoutButton>
+    </Container>
   );
 }
