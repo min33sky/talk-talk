@@ -22,6 +22,10 @@ type Action =
     }
   | {
       type: 'LOG_OUT';
+    }
+  | {
+      type: 'USER_STATUS_UPDATE';
+      payload: UserType;
     };
 
 type AuthDispatch = Dispatch<Action>;
@@ -43,6 +47,12 @@ function authReducer(state: AuthState, action: Action): AuthState {
         ...state,
         isLoggedIn: false,
         currentUser: null,
+      };
+
+    case 'USER_STATUS_UPDATE':
+      return {
+        ...state,
+        currentUser: action.payload,
       };
 
     default:

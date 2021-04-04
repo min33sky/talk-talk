@@ -15,14 +15,16 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+// 파이어베이스에서 제공하는 서비스
 export const authService = firebase.auth();
 export const dbService = firebase.firestore();
 export const storageService = firebase.storage();
 
+// 파이어베이스 인스턴스 (거의 쓸 일 없음)
 export const firebaseInstance = firebase;
 
 // 로그인, 회원가입 타입
 export type UserCredential = firebase.auth.UserCredential;
 
-// 유저 정보 타입
+// 유저 계정 정보 타입
 export type UserType = firebase.User;

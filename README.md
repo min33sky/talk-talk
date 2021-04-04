@@ -4,5 +4,7 @@
 
 ## Modules
 
-- react
-- firebase
+- React
+- Typescript
+- Context API
+- Firebase

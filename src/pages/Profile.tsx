@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { authService, dbService } from 'fbase';
-import { useAuthState } from 'contexts/auth';
+import { useAuthDispatch, useAuthState } from 'contexts/auth';
 
 /**
  * Profile Page
@@ -9,6 +9,7 @@ import { useAuthState } from 'contexts/auth';
  */
 export default function Profile() {
   const { currentUser } = useAuthState();
+  const dispatch = useAuthDispatch();
   const [newDisplayName, setNewDisplayName] = useState('');
 
   const getMyTweets = useCallback(async () => {
@@ -31,8 +32,15 @@ export default function Profile() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (currentUser?.displayName !== newDisplayName) {
+      // ? Firebase의 Auth 객체가 업데이트된다.
       await currentUser?.updateProfile({
         displayName: newDisplayName,
+      });
+
+      // ? authService.currentUser: 현재 로그인 된 사람의 정보(Firebase)를 가져온다.
+      dispatch({
+        type: 'USER_STATUS_UPDATE',
+        payload: authService.currentUser!,
       });
     }
   };
