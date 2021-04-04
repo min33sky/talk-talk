@@ -2,9 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from 'components/App';
 import { AuthContextProvider } from 'contexts/auth';
+import { Reset } from 'styled-reset';
 
 ReactDOM.render(
   <React.StrictMode>
+    <Reset />
     <AuthContextProvider>
       <App />
     </AuthContextProvider>

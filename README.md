@@ -7,4 +7,5 @@
 - React
 - Typescript
 - Context API
+- emotion
 - Firebase

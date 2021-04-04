@@ -16,7 +16,7 @@ export default function Home() {
 
   useEffect(() => {
     // ? DB가 업데이트 될 때마다 호출되는 이벤트 리스너
-    dbService
+    const unSubscribe = dbService
       .collection('tweets')
       .orderBy('createdAt', 'desc')
       .onSnapshot((snapshot) => {
@@ -27,6 +27,8 @@ export default function Home() {
 
         setTweets(tweetDatas);
       });
+
+    return () => unSubscribe();
   }, []);
 
   return (

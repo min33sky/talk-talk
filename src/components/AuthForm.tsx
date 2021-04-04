@@ -1,5 +1,13 @@
+import styled from '@emotion/styled';
 import { authService, UserCredential } from 'fbase';
 import React, { useState } from 'react';
+
+const Form = styled.form`
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+`;
 
 export default function AuthForm() {
   const [email, setEmail] = useState('');
@@ -41,7 +49,7 @@ export default function AuthForm() {
 
   return (
     <>
-      <form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit}>
         <input type="email" name="email" placeholder="Email" value={email} onChange={onChange} />
         <input
           type="password"
@@ -52,7 +60,7 @@ export default function AuthForm() {
         />
         <input type="submit" value={newAccount ? 'Create Account' : 'Sign In'} />
         {error}
-      </form>
+      </Form>
 
       <span onClick={toggleAccount}>{newAccount ? 'Sign In' : 'Create Account'}</span>
     </>
