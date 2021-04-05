@@ -2,11 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from 'components/App';
 import { AuthContextProvider } from 'contexts/auth';
-import { Reset } from 'styled-reset';
+import { Global, css } from '@emotion/react';
+import emotionReset from 'emotion-reset';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Reset />
+    <Global
+      styles={css`
+        ${emotionReset}
+      `}
+    />
     <AuthContextProvider>
       <App />
     </AuthContextProvider>

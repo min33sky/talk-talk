@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { dbService, storageService } from 'fbase';
 import { TweetType } from 'typings/tweet';
-import TweetEditFrom from './TweetEditFrom';
 import styled from '@emotion/styled';
 import { faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import TweetEditForm from './TweetEditForm';
 
 const Container = styled.div`
   margin-bottom: 20px;
@@ -74,7 +74,7 @@ export default function Tweet({ tweet, isOwner }: IProps) {
 
   return (
     <Container>
-      {editing && <TweetEditFrom tweet={tweet} setEditing={setEditing} />}
+      {editing && <TweetEditForm tweet={tweet} setEditing={setEditing} />}
 
       <h4>{tweet.text}</h4>
 
