@@ -6,6 +6,6 @@
 
 - React
 - Typescript
-- Context API
-- emotion
+- Context-api
+- Emotion
 - Firebase

@@ -61,6 +61,11 @@ function authReducer(state: AuthState, action: Action): AuthState {
 }
 
 // ***** Provider *******************************************************************//
+/**
+ * 인증 관련 Context
+ * @param chlidren
+ * @returns Auth Context provider
+ */
 export function AuthContextProvider({ children }: { children: React.ReactNode }) {
   const [authState, dispatch] = useReducer(authReducer, initialState);
 
@@ -72,12 +77,20 @@ export function AuthContextProvider({ children }: { children: React.ReactNode })
 }
 
 // ***** Hooks **********************************************************************//
+/**
+ * 인증 관련에 관한 상태 Hook
+ * @returns auth state object
+ */
 export function useAuthState() {
   const state = useContext(AuthStateContext);
   if (!state) throw new Error('AuthContext not found');
   return state;
 }
 
+/**
+ * 인증 관련 디스패치 Hook
+ * @returns dispatch Function
+ */
 export function useAuthDispatch() {
   const dispatch = useContext(AuthDispatchContext);
   if (!dispatch) throw new Error('AuthContext not found');

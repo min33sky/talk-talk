@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { authService, dbService } from 'fbase';
 import { useAuthDispatch, useAuthState } from 'contexts/auth';
 import { Container, ProfileForm, LogoutButton } from 'pages/Profile/style';
+import { Redirect } from 'react-router';
 
 /**
  * Profile Page
@@ -14,9 +15,11 @@ export default function Profile() {
   const [newDisplayName, setNewDisplayName] = useState('');
 
   const getMyTweets = useCallback(async () => {
+    if (!currentUser) return;
+
     const tweets = await dbService
       .collection('tweets')
-      .where('creatorId', '==', currentUser?.uid)
+      .where('creatorId', '==', currentUser.uid)
       .orderBy('createdAt')
       .get();
 
@@ -53,6 +56,10 @@ export default function Profile() {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewDisplayName(e.target.value);
   };
+
+  if (!currentUser) {
+    return <Redirect to="/auth" />;
+  }
 
   return (
     <Container>

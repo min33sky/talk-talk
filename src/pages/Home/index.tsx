@@ -4,14 +4,8 @@ import TweetForm from 'components/TweetForm';
 import { useAuthState } from 'contexts/auth';
 import { dbService } from 'fbase';
 import { TweetType } from 'typings/tweet';
-import styled from '@emotion/styled';
-
-const Container = styled.div`
-  width: 100%;
-  max-width: 320px;
-  display: flex;
-  flex-direction: column;
-`;
+import { Container } from './style';
+import { Redirect } from 'react-router';
 
 /**
  * Main Page
@@ -38,6 +32,10 @@ export default function Home() {
 
     return () => unSubscribe();
   }, []);
+
+  if (!currentUser) {
+    return <Redirect to="/auth" />;
+  }
 
   return (
     <Container>

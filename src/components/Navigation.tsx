@@ -5,20 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
-const ulStyle = {
-  display: 'flex',
-  justifyContent: 'center',
-  marginTop: '50px',
-};
-
-const linkStyle = {
-  marginLeft: 10,
-  display: 'flex',
-  flexDireflction: 'column',
-  alignItems: 'center',
-  fontSize: 12,
-};
-
+/**
+ * 상단 네비게이션
+ * @returns Navigation Component
+ */
 export default function Navigation() {
   const { currentUser } = useAuthState();
 
@@ -32,7 +22,7 @@ export default function Navigation() {
         </li>
 
         <li>
-          <Link to="/profile" style={linkStyle}>
+          <Link to="/profile" style={liStyle}>
             <FontAwesomeIcon icon={faUser} color="#04AAFF" size="2x" />
             <span style={{ marginTop: '10px' }}>
               {currentUser?.displayName ? currentUser.displayName : currentUser?.email}의 Profile
@@ -43,3 +33,17 @@ export default function Navigation() {
     </nav>
   );
 }
+
+const ulStyle = {
+  display: 'flex',
+  justifyContent: 'center',
+  marginTop: '50px',
+};
+
+const liStyle = {
+  marginLeft: 10,
+  display: 'flex',
+  flexDirection: 'column' as 'column',
+  alignItems: 'center',
+  fontSize: 12,
+};

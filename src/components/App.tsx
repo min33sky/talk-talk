@@ -3,8 +3,12 @@ import AppRouter from 'components/AppRouter';
 import { authService, UserType } from 'fbase';
 import { useAuthDispatch } from 'contexts/auth';
 
+/**
+ * App Component
+ * @returns App Component
+ */
 function App() {
-  const [init, setInit] = useState(false);
+  const [init, setInit] = useState(false); // 파이어베이스로부터 인증 확인 상태값
 
   const dispatch = useAuthDispatch();
 

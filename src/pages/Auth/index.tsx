@@ -1,41 +1,19 @@
 import React from 'react';
 import { authService, firebaseInstance } from 'fbase';
 import AuthForm from 'components/AuthForm';
-import styled from '@emotion/styled';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
-
-const SocialAuthButtons = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 320px;
-
-  button {
-    cursor: pointer;
-    border-radius: 20px;
-    border: none;
-    padding: 10px 0;
-    font-size: 12px;
-    text-align: center;
-    width: 150px;
-    background-color: white;
-  }
-`;
+import { Container, SocialAuthButtons } from './style';
+import { useAuthState } from 'contexts/auth';
+import { Redirect } from 'react-router-dom';
 
 /**
  * 인증 페이지
  * URL: /auth
  */
 export default function Auth() {
+  const { currentUser } = useAuthState();
+
   const onClickGoogle = async () => {
     const provider = new firebaseInstance.auth.GoogleAuthProvider();
     await authService.signInWithPopup(provider);
@@ -45,6 +23,10 @@ export default function Auth() {
     const provider = new firebaseInstance.auth.GithubAuthProvider();
     await authService.signInWithPopup(provider);
   };
+
+  if (currentUser) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <Container>
